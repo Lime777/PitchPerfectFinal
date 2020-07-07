@@ -9,10 +9,10 @@ import UIKit
 import AVFoundation
 
 // MARK: - PlaySoundsViewController: AVAudioPlayerDelegate
-
 extension PlaySoundsViewController: AVAudioPlayerDelegate {
     
     // MARK: Alerts
+    //This struct is good practice if we have string or static code - remember this.
     
     struct Alerts {
         static let DismissAlert = "Dismiss"
@@ -33,6 +33,7 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
     
     // MARK: Audio Functions
     
+    
     func setupAudio() {
         // initialize (recording) audio file
         do {
@@ -41,6 +42,8 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
             showAlert(Alerts.AudioFileError, message: String(describing: error))
         }
     }
+    
+    //The playsound function is the main func in this extention, it carries out play back audio
     
     func playSound(rate: Float? = nil, pitch: Float? = nil, echo: Bool = false, reverb: Bool = false) {
         
@@ -167,4 +170,5 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
         alert.addAction(UIAlertAction(title: Alerts.DismissAlert, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
 }

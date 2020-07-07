@@ -31,8 +31,7 @@ class PlaySoundsViewController: UIViewController {
     
     
     @IBAction func playSoundForButton(_ sender: UIButton) {
-        
-        switch(ButtonType(rawValue: sender.tag)!) {
+                switch(ButtonType(rawValue: sender.tag)!) {
         case .slow:
             playSound(rate: 0.5)
         case .fast:
@@ -50,7 +49,7 @@ class PlaySoundsViewController: UIViewController {
         configureUI(.playing)
     }
     
-    @IBAction func stopButtonPressed(_ sender: UIButton) {
+    @IBAction func stopButtonPressed(_ sender: AnyObject) {
         stopAudio()
     }
     
@@ -64,4 +63,5 @@ class PlaySoundsViewController: UIViewController {
         super.viewWillAppear(animated)
         configureUI(.notPlaying)
     }
+
 }
