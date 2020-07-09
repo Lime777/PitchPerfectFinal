@@ -17,10 +17,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var stopRecordingButton: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,15 +25,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     
     @IBAction func recordAudio(_ sender: Any) {
         
-        button(false)
+        configureUI(false)
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
         let recordingName = "recordedVoice.wav"
@@ -55,7 +46,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     @IBAction func stopRecording(_ sender: Any) {
     
-        button(true)
+        configureUI(true)
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
@@ -63,10 +54,12 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         
+        
         if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
         } else {
-            print("Recording Unsuccessful")
+           let alert = UIAlertController(title: "Recording Error", message: "Unsuccessful Recording", preferredStyle: .alert)
+           self.present(alert, animated: true, completion: nil)
         }
         
     }
@@ -79,7 +72,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    func button(_ isEnabled: Bool) {
+    func configureUI(_ isEnabled: Bool) {
         
         stopRecordingButton.isEnabled = !isEnabled
         recordButton.isEnabled = isEnabled
@@ -90,5 +83,5 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             recordingLabel.text = "Tap to record"
         }
     }
+    
 }
-
